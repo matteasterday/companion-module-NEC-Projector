@@ -1,8 +1,9 @@
 {
-	"name": "your-module-name",
-	"version": "0.1.0",
+	"name": "nec-projector",
+	"version": "1.0.0",
 	"main": "dist/main.js",
 	"type": "module",
+	"description": "Control and monitor NEC / Sharp NEC projectors over their HTTP control interface (IsapiExtPj.dll binary command protocol), with polled feedback variables.",
 	"scripts": {
 		"postinstall": "husky",
 		"format": "prettier -w .",
@@ -16,7 +17,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/bitfocus/companion-module-your-module-name.git"
+		"url": "git+https://github.com/matteasterday/companion-module-NEC-Projector.git"
 	},
 	"engines": {
 		"node": "^22.20",

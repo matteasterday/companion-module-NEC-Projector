@@ -1,15 +1,85 @@
 import type ModuleInstance from './main.js'
+import { toHex } from './nec/protocol.js'
+import type { ProjectorState } from './nec/decode.js'
 
 export type VariablesSchema = {
-	variable1: string
-	variable2: string
-	variable3: string
+	connection: string
+	model: string
+	serial: string
+	mac: string
+	power: string
+	operation_status: string
+	content: string
+	input: string
+	input_code: string
+	picture_mute: string
+	sound_mute: string
+	onscreen_mute: string
+	freeze: string
+	shutter: string
+	lamp_remaining: string
+	lamp_hours: string
+	filter_hours: string
+	eco_mode: string
+	error_count: string
+	errors: string
+	sync_h: string
+	sync_v: string
 }
 
 export function UpdateVariableDefinitions(self: ModuleInstance): void {
 	self.setVariableDefinitions({
-		variable1: { name: 'My first variable' },
-		variable2: { name: 'My second variable' },
-		variable3: { name: 'Another variable' },
+		connection: { name: 'Connection state (Connected / Disconnected)' },
+		model: { name: 'Model name' },
+		serial: { name: 'Serial number' },
+		mac: { name: 'MAC address' },
+		power: { name: 'Power (On / Off)' },
+		operation_status: { name: 'Operation status' },
+		content: { name: 'Content displayed' },
+		input: { name: 'Active input (name)' },
+		input_code: { name: 'Active input (raw terminal code)' },
+		picture_mute: { name: 'Picture mute (On / Off)' },
+		sound_mute: { name: 'Sound mute (On / Off)' },
+		onscreen_mute: { name: 'On-screen mute (On / Off)' },
+		freeze: { name: 'Freeze (On / Off)' },
+		shutter: { name: 'Shutter / lens mute (Open / Closed)' },
+		lamp_remaining: { name: 'Lamp life remaining (%)' },
+		lamp_hours: { name: 'Lamp hours used' },
+		filter_hours: { name: 'Filter hours used' },
+		eco_mode: { name: 'Eco / lamp mode' },
+		error_count: { name: 'Active error count' },
+		errors: { name: 'Active errors (list)' },
+		sync_h: { name: 'Horizontal sync frequency' },
+		sync_v: { name: 'Vertical sync frequency' },
 	})
+}
+
+const onOff = (b: boolean): string => (b ? 'On' : 'Off')
+
+/** Project the current state into the typed variable value map. */
+export function buildVariableValues(state: ProjectorState): VariablesSchema {
+	return {
+		connection: state.reachable ? 'Connected' : 'Disconnected',
+		model: state.modelName || '—',
+		serial: state.serial || '—',
+		mac: state.mac || '—',
+		power: state.powered ? 'On' : 'Off',
+		operation_status: state.operationStatus,
+		content: state.content || '—',
+		input: state.inputName || '—',
+		input_code: state.inputType2 ? toHex(state.inputType2) : '—',
+		picture_mute: onOff(state.pictureMute),
+		sound_mute: onOff(state.soundMute),
+		onscreen_mute: onOff(state.onscreenMute),
+		freeze: onOff(state.freeze),
+		shutter: state.shutter ? 'Closed' : 'Open',
+		lamp_remaining: state.lampRemainingPct == null ? '—' : `${state.lampRemainingPct}%`,
+		lamp_hours: state.lampHours == null ? '—' : String(state.lampHours),
+		filter_hours: state.filterHours == null ? '—' : String(state.filterHours),
+		eco_mode: state.ecoMode || '—',
+		error_count: String(state.errors.length),
+		errors: state.errors.length ? state.errors.join(', ') : 'None',
+		sync_h: state.syncH || '—',
+		sync_v: state.syncV || '—',
+	}
 }

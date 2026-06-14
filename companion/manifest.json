@@ -1,28 +1,41 @@
 {
 	"$schema": "../node_modules/@companion-module/base/assets/manifest.schema.json",
 	"type": "connection",
-	"id": "your-module-name",
-	"name": "your-module-name",
-	"shortname": "module-shortname",
-	"description": "A short one line description of your module",
-	"version": "0.0.0",
+	"id": "nec-projector",
+	"name": "nec-projector",
+	"shortname": "NEC Projector",
+	"description": "Control and monitor NEC / Sharp NEC projectors over HTTP (IsapiExtPj.dll control-command protocol). Power, input, mutes, freeze, shutter, lens, eco mode and more, with polled feedback variables.",
+	"version": "1.0.0",
 	"license": "MIT",
-	"repository": "git+https://github.com/bitfocus/companion-module-your-module-name.git",
-	"bugs": "https://github.com/bitfocus/companion-module-your-module-name/issues",
+	"repository": "git+https://github.com/matteasterday/companion-module-NEC-Projector.git",
+	"bugs": "https://github.com/matteasterday/companion-module-NEC-Projector/issues",
 	"maintainers": [
 		{
-			"name": "Your name",
-			"email": "Your email"
+			"name": "Matthew Easterday",
+			"email": "hello@mattheweasterday.com"
 		}
 	],
 	"runtime": {
 		"type": "node22",
 		"api": "nodejs-ipc",
-		"apiVersion": "0.0.0",
+		"apiVersion": "2.0.4",
 		"entrypoint": "../dist/main.js"
 	},
 	"legacyIds": [],
-	"manufacturer": "Your company",
-	"products": ["Your product"],
-	"keywords": []
+	"manufacturer": "NEC / Sharp NEC Display Solutions",
+	"products": [
+		"NP-PA series",
+		"NP-PX series",
+		"NP-PH series",
+		"NP-P series",
+		"NP-PE series",
+		"NP-M series",
+		"NP-ME series",
+		"NP-UM series",
+		"NP-U series",
+		"NP-V series",
+		"NP-VE series",
+		"NP4100"
+	],
+	"keywords": ["projector", "NEC", "Sharp NEC", "display", "AV", "HTTP"]
 }
