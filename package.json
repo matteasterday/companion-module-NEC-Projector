@@ -17,7 +17,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/matteasterday/companion-module-NEC-Projector.git"
+		"url": "git+https://github.com/matteasterday/companion-module-NEC-Projectors.git"
 	},
 	"engines": {
 		"node": "^22.20",
